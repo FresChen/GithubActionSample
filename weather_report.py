@@ -79,7 +79,7 @@ def get_daily_love():
     return daily_love
 
 
-def send_weather(access_token, weather，openId):
+def send_weather(access_token, weather, openId):
     # touser 就是 openID
     # template_id 就是模板ID
     # url 就是点击模板跳转的url
