@@ -126,7 +126,7 @@ def weather_report(this_city):
     weather = get_weather(this_city)
     print(f"天气信息： {weather}")
     # 3. 发送消息
-    for open_id in openIds.split(","):
+    for open_id in openIds.strip().split(","):
         send_weather(access_token, weather, open_id.strip())
 
 
