@@ -8,7 +8,7 @@ from bs4 import BeautifulSoup
 appID = os.environ.get("APP_ID")
 appSecret = os.environ.get("APP_SECRET")
 # 收信人ID即 用户列表中的微信号
-openId = os.environ.get("OPEN_ID")
+openIds = os.environ.get("OPEN_ID")
 # 天气预报模板ID
 weather_template_id = os.environ.get("TEMPLATE_ID")
 
@@ -78,7 +78,7 @@ def get_daily_love():
     return daily_love
 
 
-def send_weather(access_token, weather):
+def send_weather(access_token, weather，openId):
     # touser 就是 openID
     # template_id 就是模板ID
     # url 就是点击模板跳转的url
@@ -89,7 +89,7 @@ def send_weather(access_token, weather):
     today_str = today.strftime("%Y年%m月%d日")
 
     body = {
-        "touser": openId.strip(),
+        "touser": openId,
         "template_id": weather_template_id.strip(),
         "url": "https://weixin.qq.com",
         "data": {
@@ -125,7 +125,8 @@ def weather_report(this_city):
     weather = get_weather(this_city)
     print(f"天气信息： {weather}")
     # 3. 发送消息
-    send_weather(access_token, weather)
+    for open_id in openIds.split(","):
+        send_weather(access_token, weather, open_id.strip())
 
 
 
