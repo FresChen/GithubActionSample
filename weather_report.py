@@ -6,7 +6,8 @@ from bs4 import BeautifulSoup
 
 # 从测试号信息获取
 appID = os.environ.get("APP_ID")
-
+# 获取城市信息
+city = os.environ.get("CITY")
 appSecret = os.environ.get("APP_SECRET")
 # 收信人ID即 用户列表中的微信号
 openIds = os.environ.get("OPEN_ID")
@@ -132,4 +133,4 @@ def weather_report(this_city):
 
 
 if __name__ == '__main__':
-    weather_report("福州")
+    weather_report(city.strip())
