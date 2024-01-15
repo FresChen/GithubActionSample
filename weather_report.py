@@ -121,7 +121,7 @@ def send_weather(access_token, weather, openId):
 
 
 def weather_report():
-    this_city = city.strip()
+    this_city = str(city).strip()
     # 1.获取access_token
     access_token = get_access_token()
     # 2. 获取天气
