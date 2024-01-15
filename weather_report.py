@@ -8,7 +8,6 @@ from bs4 import BeautifulSoup
 appID = os.environ.get("APP_ID")
 # 获取城市信息
 city = os.environ.get("CITY_NAME")
-print(f"CITY_NAME 的值是: {city}")
 appSecret = os.environ.get("APP_SECRET")
 # 收信人ID即 用户列表中的微信号
 openIds = os.environ.get("OPEN_ID")
@@ -121,8 +120,7 @@ def send_weather(access_token, weather, openId):
 
 
 
-def weather_report():
-    this_city = str(city).strip()
+def weather_report(this_city):
     # 1.获取access_token
     access_token = get_access_token()
     # 2. 获取天气
@@ -135,4 +133,4 @@ def weather_report():
 
 
 if __name__ == '__main__':
-    weather_report()
+    weather_report(city.strip())
