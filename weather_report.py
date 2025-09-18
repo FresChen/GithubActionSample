@@ -87,7 +87,7 @@ def get_countdown():
     delta = target_time - now
 
     if delta.total_seconds() < 0:
-        return "距离许林订婚还有：0天0小时0分钟", 0, 0, 0  # 已过期
+        return "距离许林订婚还有：0天0小时0分钟"  # 已过期
 
     days = delta.days
     seconds = delta.seconds
@@ -95,7 +95,7 @@ def get_countdown():
     minutes = (seconds % 3600) // 60
 
     countdown_str = f"距离许林订婚还有：{days}天{hours}小时{minutes}分钟"
-    return countdown_str, days, hours, minutes
+    return countdown_str
 
 def send_weather(access_token, weather, openId):
     # touser 就是 openID
