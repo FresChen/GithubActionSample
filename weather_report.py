@@ -3,6 +3,7 @@ import os
 import requests
 import json
 from bs4 import BeautifulSoup
+import datetime
 
 # 从测试号信息获取
 appID = os.environ.get("APP_ID")
@@ -79,6 +80,22 @@ def get_daily_love():
     daily_love = sentence
     return daily_love
 
+def get_countdown():
+    # 目标时间：2025年10月3日 0点0分0秒
+    target_time = datetime.datetime(2025, 10, 3, 0, 0, 0)
+    now = datetime.datetime.now()
+    delta = target_time - now
+
+    if delta.total_seconds() < 0:
+        return "距离许林订婚还有：0天0小时0分钟", 0, 0, 0  # 已过期
+
+    days = delta.days
+    seconds = delta.seconds
+    hours = seconds // 3600
+    minutes = (seconds % 3600) // 60
+
+    countdown_str = f"距离许林订婚还有：{days}天{hours}小时{minutes}分钟"
+    return countdown_str, days, hours, minutes
 
 def send_weather(access_token, weather, openId):
     # touser 就是 openID
@@ -111,7 +128,8 @@ def send_weather(access_token, weather, openId):
                 "value": weather[3]
             },
             "today_note": {
-                "value": get_daily_love()
+                #"value": get_daily_love()
+                "value": get_countdown()
             }
         }
     }
