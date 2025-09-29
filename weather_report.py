@@ -15,6 +15,15 @@ openIds = os.environ.get("OPEN_ID")
 # 天气预报模板ID
 weather_template_id = os.environ.get("TEMPLATE_ID")
 
+# =========================
+# 配置收信人和城市
+# =========================
+receivers = {
+    "otdCA6WLxqJvYQHUSHXwPyGaIDDo": "福州"
+   # "openid2": "厦门",
+   # "openid3": "厦门"
+}
+
 def get_weather(my_city):
     urls = ["http://www.weather.com.cn/textFC/hb.shtml",
             "http://www.weather.com.cn/textFC/db.shtml",
@@ -81,8 +90,8 @@ def get_daily_love():
     return daily_love
 
 def get_countdown():
-    # 目标时间：2025年10月3日 0点0分0秒
-    target_time = datetime.datetime(2025, 10, 3, 0, 0, 0)
+    # 目标时间：2025年10月3日 11点0分0秒
+    target_time = datetime.datetime(2025, 10, 3, 11, 0, 0)
     now = datetime.datetime.now()
     delta = target_time - now
 
@@ -94,7 +103,7 @@ def get_countdown():
     hours = seconds // 3600
     minutes = (seconds % 3600) // 60
 
-    countdown_str = f"距离许林订婚还有：{days}天{hours}小时{minutes}分钟"
+    countdown_str = f"距离许林订婚还有{days}天{hours}小时{minutes}分钟"
     return countdown_str
 
 def send_weather(access_token, weather, openId):
@@ -138,17 +147,18 @@ def send_weather(access_token, weather, openId):
 
 
 
-def weather_report(this_city):
-    # 1.获取access_token
+def weather_report(receivers_dict):
+    # 1. 获取 access_token
     access_token = get_access_token()
-    # 2. 获取天气
-    weather = get_weather(this_city)
-    print(f"天气信息： {weather}")
-    # 3. 发送消息
-    for open_id in openIds.strip().split(","):
-        send_weather(access_token, weather, open_id.strip())
+
+    # 2. 遍历每个收信人和城市
+    for open_id, city in receivers_dict.items():
+        weather = get_weather(city)
+        print(f"城市：{city} 天气信息：{weather}")
+        # 3. 发送消息
+        send_weather(access_token, weather, open_id)
 
 
 
 if __name__ == '__main__':
-    weather_report(city.strip())
+    weather_report(receivers)
