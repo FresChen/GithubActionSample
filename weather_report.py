@@ -19,8 +19,8 @@ weather_template_id = os.environ.get("TEMPLATE_ID")
 # 配置收信人和城市
 # =========================
 receivers = {
-    "otdCA6WLxqJvYQHUSHXwPyGaIDDo": "福州"
-   # "openid2": "厦门",
+    "otdCA6WLxqJvYQHUSHXwPyGaIDDo": "福州",
+    "otdCA6euDAEuo1sAv3kgLmC412cw": "厦门",
    # "openid3": "厦门"
 }
 
